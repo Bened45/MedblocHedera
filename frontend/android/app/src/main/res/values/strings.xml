@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">MedChain</string>
-    <string name="title_activity_main">MedChain</string>
-    <string name="package_name">com.medchain.app</string>
-    <string name="custom_url_scheme">com.medchain.app</string>
-</resources>
