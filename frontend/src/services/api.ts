@@ -1,4 +1,8 @@
-const BASE_URL = "https://hedera-did-ipfs.onrender.com";
+const BASE_URL = import.meta.env.VITE_API_URL;
+
+if (!BASE_URL) {
+  throw new Error("La variable d'environnement VITE_API_URL n'est pas définie.");
+}
 
 export const createDid = async (data: any) => {
   try {
