@@ -4,13 +4,23 @@ if (!BASE_URL) {
   throw new Error("La variable d'environnement VITE_API_URL n'est pas définie.");
 }
 
+// Helper to create authenticated headers
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('authToken');
+  const headers: HeadersInit = {
+    "Content-Type": "application/json",
+  };
+  if (token) {
+    headers["Authorization"] = `Bearer ${token}`;
+  }
+  return headers;
+};
+
 export const createDid = async (data: any) => {
   try {
     const response = await fetch(`${BASE_URL}/create-did`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -28,7 +38,10 @@ export const createDid = async (data: any) => {
 
 export const resolveDid = async (did: string) => {
   try {
-    const response = await fetch(`${BASE_URL}/resolve-did/${did}`);
+    // GET requests can also be authenticated
+    const response = await fetch(`${BASE_URL}/resolve-did/${did}`, {
+        headers: getAuthHeaders(),
+    });
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -46,9 +59,7 @@ export const issueMedicalVc = async (data: any) => {
   try {
     const response = await fetch(`${BASE_URL}/issue-medical-vc`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -68,9 +79,7 @@ export const verifyVc = async (data: any) => {
   try {
     const response = await fetch(`${BASE_URL}/verify-vc`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(data),
     });
 
