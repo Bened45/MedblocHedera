@@ -34,7 +34,7 @@ function LoginPage() {
 
     setLoading(true);
     try {
-      await login(formData.hospitalId);
+      await login(formData.hospitalId, formData.privateKey);
     } catch (error) {
       console.error("Login failed:", error);
       toast.error('La connexion a échoué. Veuillez vérifier vos identifiants.');
